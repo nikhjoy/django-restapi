@@ -21,3 +21,10 @@ class register(APIView):
             data=serializer.errors
         return Response(data)
 
+class welcome(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self,request):
+        content={'user':str(request.user),'userid':str(request.user.id)}
+        return Response(content)
+
