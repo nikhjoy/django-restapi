@@ -24,4 +24,5 @@ urlpatterns = [
     path('login',obtain_auth_token,name="login"),
     path('welcome',views.welcome.as_view(),name="welcome"),
     path('userDetails/<int:pk>',views.userDetails.as_view(),name="userDetails"),
+    path('paginationApi',views.paginationApi.as_view(),name="paginationApi"),
 ]
