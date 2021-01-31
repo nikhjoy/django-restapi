@@ -1,9 +1,11 @@
 from django.shortcuts import render
-from .serializers import UserRegister
+from .serializers import UserRegister,UserDataSerializer
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
+from django.http import Http404
 
 class register(APIView):
 
@@ -27,4 +29,16 @@ class welcome(APIView):
     def get(self,request):
         content={'user':str(request.user),'userid':str(request.user.id)}
         return Response(content)
+
+class userDetails(APIView):
+    def get_object(self,pk):
+        try:
+            return User.objects.get(pk=pk)
+        except:
+            raise Http404
+
+    def get(self,request,pk,format=None):
+        userData = self.get_object(pk)
+        serializer=UserDataSerializer(userData)
+        return Response(serializer.data)
 
