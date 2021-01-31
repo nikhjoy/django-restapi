@@ -50,3 +50,8 @@ class userDetails(APIView):
             return Response(serializer.data)
         return Response({'message':'error','error':serializer.errors})
 
+    def delete(self,request,pk,format=None):
+        userData = self.get_object(pk)
+        userData.delete()
+        return Response({'message':"user deleted"})
+
